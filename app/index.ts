@@ -29,6 +29,8 @@ const status: () => void = async () => {
   const allGuilds = client.guilds.cache;
   const guildLength = allGuilds.map((x) => x).length;
 
+  console.log(client.user);
+
   if (client && client.user) {
     client.user.setPresence({
       activities: [
