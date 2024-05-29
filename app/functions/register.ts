@@ -28,7 +28,7 @@ for (const folder of commandFolders) {
   }
 }
 
-export const commandRegister = async () => {
+export const register = async (guild: string) => {
   const BOT = process.env.BOT_TOKEN;
   const BOTID = process.env.BOT_ID;
 
