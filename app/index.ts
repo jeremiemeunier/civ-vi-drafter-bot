@@ -66,7 +66,6 @@ export const boot: () => void = async () => {
   logs("start", "booter", "CIVDraftBot has started successfully");
 
   status();
-  register();
 
   try {
     // API
