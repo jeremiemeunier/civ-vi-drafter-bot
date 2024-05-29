@@ -1,4 +1,4 @@
-const tag = `pastille`;
+const tag = `draftbot`;
 
 const composeTime: () => string = () => {
   const now = new Date();
@@ -54,8 +54,8 @@ const composeService: (data: string) => string = (data: string) => {
 };
 
 const composeState: (
-  data: "error" | "success" | "warning" | "start"
-) => string = (data: "error" | "success" | "warning" | "start") => {
+  data: "error" | "success" | "warning" | "start" | null
+) => string = (data: "error" | "success" | "warning" | "start" | null) => {
   switch (data) {
     case "error":
       return "[ ERROR ]";
@@ -71,12 +71,12 @@ const composeState: (
 };
 
 export const logs: (
-  state: "error" | "success" | "warning" | "start",
+  state: "error" | "success" | "warning" | "start" | null,
   service: string,
   content: string,
   guild?: string
 ) => void = async (
-  state: "error" | "success" | "warning" | "start",
+  state: "error" | "success" | "warning" | "start" | null,
   service: string,
   content: string,
   guild?: string
