@@ -7,13 +7,20 @@ MONGO_URL && connect(MONGO_URL);
 
 // ##### BOT SETUP ##### \\
 
-import { Client, GatewayIntentBits, Partials, ActivityType } from "discord.js";
+import {
+  Client,
+  GatewayIntentBits,
+  Partials,
+  Events,
+  ActivityType,
+} from "discord.js";
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent,
     GatewayIntentBits.GuildMessageReactions,
+    GatewayIntentBits.GuildVoiceStates,
   ],
   partials: [Partials.Message, Partials.Channel, Partials.Reaction],
 });
@@ -22,6 +29,7 @@ const client = new Client({
 
 import { logs } from "./functions/logs";
 import { api } from "./functions/api";
+import { register } from "./functions/register";
 
 // ##### APP ##### \\
 
@@ -45,11 +53,46 @@ const status: () => void = async () => {
   }
 };
 
+const guild_boot = (guild: any) => {
+  const { commandRegister } = require("./function/register");
+
+  try {
+    logs("start", "booter:guild_starter", "Start all functions", guild.id);
+    register(guild);
+  } catch (error: any) {
+    logs("error", "booter:guild_starter", error, guild.id);
+  }
+};
+
 export const boot: () => void = async () => {
   logs("start", "booter", "CIVDraftBot has started successfully");
 
   status();
-  api();
+
+  try {
+    // API
+    api();
+
+    try {
+      const allGuilds = client.guilds.cache;
+
+      allGuilds.map((guild) => {
+        guild_boot(guild);
+      });
+    } catch (error: any) {
+      logs("error", "booter", error);
+    }
+  } catch (error: any) {
+    logs("error", "api:server", error);
+  }
+
+  client.on(Events.GuildCreate, (params: any) => {
+    const { guild } = params;
+
+    logs(null, "events:new_guild", "Join a new guild", guild.id);
+    guild_boot(guild);
+    status();
+  });
 };
 
 try {
