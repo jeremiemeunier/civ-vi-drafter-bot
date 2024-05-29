@@ -1,6 +1,7 @@
+import { connect } from "mongoose";
+
 // ##### BDD ##### \\
 
-import { connect } from "mongoose";
 const MONGO_URL = process.env.MONGODB_URL;
 MONGO_URL && connect(MONGO_URL);
 
@@ -21,22 +22,6 @@ const client = new Client({
 
 import { logs } from "./functions/logs";
 import { api } from "./functions/api";
-
-// ##### FIX ##### \\
-
-if (!String.prototype.endsWith) {
-  Object.defineProperty(String.prototype, "endsWith", {
-    enumerable: false,
-    configurable: false,
-    writable: false,
-    value: function (searchString, position) {
-      position = position || this.length;
-      position = position - searchString.length;
-      var lastIndex = this.lastIndexOf(searchString);
-      return lastIndex !== -1 && lastIndex === position;
-    },
-  });
-}
 
 // ##### APP ##### \\
 
@@ -72,6 +57,6 @@ try {
     boot();
   });
   client.login(process.env.BOT_TOKEN);
-} catch (error) {
+} catch (error: any) {
   logs("error", "client:connect", error);
 }
