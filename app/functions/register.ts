@@ -28,7 +28,41 @@ for (const folder of commandFolders) {
   }
 }
 
-export const register = async (guild: string) => {
+export const register_in_guild = async (guild: string) => {
+  const BOT = process.env.BOT_TOKEN;
+  const BOTID = process.env.BOT_ID;
+
+  if (BOT && BOTID) {
+    const rest = new REST().setToken(BOT);
+    (async () => {
+      try {
+        logs(
+          "start",
+          "cmd_register",
+          `Started refreshing ${commands.length} application (/) commands.`
+        );
+        const data: any = await rest.put(
+          Routes.applicationGuildCommands(BOTID, guild),
+          {
+            body: commands,
+          }
+        );
+
+        logs(
+          "success",
+          "cmd_register",
+          `Successfully reloaded ${data.length} application (/) commands.`
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  } else {
+    logs("error", "cmd_register", "Missing env config");
+  }
+};
+
+export const register = async () => {
   const BOT = process.env.BOT_TOKEN;
   const BOTID = process.env.BOT_ID;
 
