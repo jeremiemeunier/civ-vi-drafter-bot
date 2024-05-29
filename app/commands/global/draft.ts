@@ -4,13 +4,13 @@ const commands = {
   default_member_permissions: 0,
   options: [
     {
-      name: "Number of players",
+      name: "number_of_players",
       description: "How much player ?",
       type: 4,
       required: true,
     },
     {
-      name: "Number of choices",
+      name: "number_of_choices",
       description: "How much choices ?",
       type: 4,
       required: true,
