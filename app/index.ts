@@ -27,9 +27,7 @@ import { api } from "./functions/api";
 
 const status: () => void = async () => {
   const allGuilds = client.guilds.cache;
-  const guildLength = allGuilds.map((x) => x).length;
-
-  console.log(client.user);
+  const guildLength = allGuilds.map((x: any) => x).length;
 
   if (client && client.user) {
     client.user.setPresence({
