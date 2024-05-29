@@ -1,0 +1,38 @@
+{
+  "name": "civ-draft-discord-bot",
+  "version": "0.1.0",
+  "description": "A bot who send love all days of your life",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prod": "babel-node --env-file=.env app/index.js",
+    "dev": "npx nodemon --exec babel-node --env-file=.env app/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeremiemeunier/civ-drafter-discord-bot.git"
+  },
+  "author": "meunierjeremie",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jeremiemeunier/civ-drafter-discord-bot/issues"
+  },
+  "homepage": "https://github.com/jeremiemeunier/civ-drafter-discord-bot#readme",
+  "dependencies": {
+    "@discordjs/rest": "^2.3.0",
+    "axios": "^1.7.2",
+    "cors": "^2.8.5",
+    "discord.js": "^14.15.2",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.2.0",
+    "mongoose": "^8.4.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.24.6",
+    "@babel/core": "^7.24.6",
+    "@babel/node": "^7.24.6",
+    "@babel/plugin-transform-class-properties": "^7.24.6",
+    "@babel/plugin-transform-object-rest-spread": "^7.24.6",
+    "@babel/preset-env": "^7.24.6"
+  }
+}
