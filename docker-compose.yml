@@ -15,8 +15,10 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: app
+    env_file:
+      - .env
     environment:
-      MONGO_URI: mongodb://${MONGODB_USR}:${MONGODB_PWD}@mongodb:27017/civ-drafter
+      MONGODB_URL: mongodb://mongodb:27017/civdraftbot
     depends_on:
       - mongodb
     networks:
