@@ -32,11 +32,20 @@ export const commandDraft = async (client: any, interaction: any) => {
 
       try {
         await interactChannel.send({
-          content: `**Player ${i + 1}** \r\n>${playerChoice.join(" - ")}`,
+          content: `**Player ${i + 1}** \r\n> ${playerChoice.join(" — ")}`,
         });
       } catch (error: any) {
         logs("error", "command_draft", error);
       }
+    }
+
+    try {
+      await interaction.reply({
+        content: `Votre draft est prête`,
+        ephemeral: true,
+      });
+    } catch (error: any) {
+      logs("error", "command_draft", error);
     }
   };
 
