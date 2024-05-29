@@ -1,8 +1,7 @@
 FROM node:20-slim
 
 WORKDIR /app
-COPY package.json ./
-COPY yarn.lock ./
+COPY package*.json ./
 RUN npm i
 
 COPY . .
