@@ -4,7 +4,7 @@
   "description": "A bot who send love all days of your life",
   "main": "app/index.ts",
   "scripts": {
-    "prod": "npx tsc && babel-node --env-file=.env ./app/index.js",
+    "prod": "npx tsc && babel-node --env-file=.env index.js",
     "dev": "npx tsc && npx nodemon --exec babel-node --env-file=.env ./dist/index.js"
   },
   "repository": {
