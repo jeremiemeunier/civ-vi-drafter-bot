@@ -42,7 +42,7 @@ const status: () => void = async () => {
     client.user.setPresence({
       activities: [
         {
-          name: `Créé des draft pour ${
+          name: `Les Drafts les plus qualitative de ta région — Crée des drafts pour ${
             guildLength > 1
               ? `${guildLength} serveurs`
               : `${guildLength} serveur`
