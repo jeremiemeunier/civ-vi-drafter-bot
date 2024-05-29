@@ -29,7 +29,7 @@ const client = new Client({
 
 import { logs } from "./functions/logs";
 import { api } from "./functions/api";
-import { register } from "./functions/register";
+import { register, register_in_guild } from "./functions/register";
 
 // ##### APP ##### \\
 
@@ -56,7 +56,7 @@ const status: () => void = async () => {
 const guild_boot = (guild: any) => {
   try {
     logs("start", "booter:guild_starter", "Start all functions", guild.id);
-    register(guild);
+    register_in_guild(guild.id);
   } catch (error: any) {
     logs("error", "booter:guild_starter", error, guild.id);
   }
@@ -66,6 +66,7 @@ export const boot: () => void = async () => {
   logs("start", "booter", "CIVDraftBot has started successfully");
 
   status();
+  register();
 
   try {
     // API
