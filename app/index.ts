@@ -54,8 +54,6 @@ const status: () => void = async () => {
 };
 
 const guild_boot = (guild: any) => {
-  const { commandRegister } = require("./function/register");
-
   try {
     logs("start", "booter:guild_starter", "Start all functions", guild.id);
     register(guild);
