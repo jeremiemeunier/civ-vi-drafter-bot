@@ -30,6 +30,7 @@ const client = new Client({
 import { logs } from "./functions/logs";
 import { api } from "./functions/api";
 import { register, register_in_guild } from "./functions/register";
+import { interactionCreateEventInit } from "./events/interactionCreateEvent";
 
 // ##### APP ##### \\
 
@@ -77,6 +78,8 @@ export const boot: () => void = async () => {
       allGuilds.map((guild) => {
         guild_boot(guild);
       });
+
+      interactionCreateEventInit(client);
     } catch (error: any) {
       logs("error", "booter", error);
     }
