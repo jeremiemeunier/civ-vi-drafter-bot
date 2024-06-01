@@ -5,7 +5,6 @@ import { readFileSync } from "node:fs";
 export const commandDraft = async (client: any, interaction: any) => {
   const { commandName } = interaction;
   const leaders = JSON.parse(readFileSync("./data/leaders.json").toString());
-  const players: any[] = [];
   const interactChannel = client.channels.cache.find(
     (channel: any) => channel.id === interaction.channelId
   );
@@ -25,6 +24,7 @@ export const commandDraft = async (client: any, interaction: any) => {
       for (let i = 0; i < sizeOfChoice; i++) {
         const num: number = getRandomNumber(0, Object.keys(leaders).length - 1);
 
+        leaders.splice(num, 1);
         playerChoice.push(
           `${leaders[num].shortName} (*${leaders[num].civilization}*)`
         );
