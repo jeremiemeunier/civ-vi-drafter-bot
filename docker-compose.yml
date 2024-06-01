@@ -23,6 +23,7 @@ services:
       - mongodb
     networks:
       - app-network
+    restart: always
 
 volumes:
   mongo-data:
