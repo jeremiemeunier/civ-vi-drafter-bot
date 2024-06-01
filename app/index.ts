@@ -87,9 +87,7 @@ export const boot: () => void = async () => {
     logs("error", "api:server", error);
   }
 
-  client.on(Events.GuildCreate, (params: any) => {
-    const { guild } = params;
-
+  client.on(Events.GuildCreate, (guild: any) => {
     logs(null, "events:new_guild", "Join a new guild", guild.id);
     guild_boot(guild);
     status();

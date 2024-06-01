@@ -1,6 +1,6 @@
 {
   "name": "civ-draft-discord-bot",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "A bot who send love all days of your life",
   "main": "app/index.ts",
   "scripts": {

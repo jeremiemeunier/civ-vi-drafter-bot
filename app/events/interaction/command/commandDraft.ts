@@ -18,16 +18,24 @@ export const commandDraft = async (client: any, interaction: any) => {
   };
 
   const draftLearders = async (sizeOfPlayer: number, sizeOfChoice: number) => {
+    if (leaders.length < sizeOfPlayer * sizeOfChoice) {
+      await interaction.reply({
+        content: `Il n'y as pas assez de dirigeants disponible pour créer une draft sans doublons. Veuillez réduire le nombre de choix ou de participants.`,
+        ephemeral: true,
+      });
+      return;
+    }
+
     for (let i = 0; i < sizeOfPlayer; i++) {
       let playerChoice = [];
 
       for (let i = 0; i < sizeOfChoice; i++) {
         const num: number = getRandomNumber(0, Object.keys(leaders).length - 1);
 
-        leaders.splice(num, 1);
         playerChoice.push(
           `${leaders[num].shortName} (*${leaders[num].civilization}*)`
         );
+        leaders.splice(num, 1);
       }
 
       try {
