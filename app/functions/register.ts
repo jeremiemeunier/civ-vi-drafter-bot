@@ -21,7 +21,7 @@ for (const folder of commandFolders) {
     } else {
       logs(
         "warning",
-        "cmd_register",
+        "cmd:register",
         `The command at ${filePath} is missing a required "data" property.`
       );
     }
@@ -38,8 +38,9 @@ export const register_in_guild = async (guild: string) => {
       try {
         logs(
           "start",
-          "cmd_register",
-          `Started refreshing ${commands.length} application (/) commands.`
+          "cmd:register",
+          `Started refreshing ${commands.length} application (/) commands.`,
+          guild
         );
         const data: any = await rest.put(
           Routes.applicationGuildCommands(BOTID, guild),
@@ -50,15 +51,16 @@ export const register_in_guild = async (guild: string) => {
 
         logs(
           "success",
-          "cmd_register",
-          `Successfully reloaded ${data.length} application (/) commands.`
+          "cmd:register",
+          `Successfully reloaded ${data.length} application (/) commands.`,
+          guild
         );
       } catch (error) {
         console.error(error);
       }
     })();
   } else {
-    logs("error", "cmd_register", "Missing env config");
+    logs("error", "cmd:register", "Missing env config");
   }
 };
 
@@ -72,7 +74,7 @@ export const register = async () => {
       try {
         logs(
           "start",
-          "cmd_register",
+          "cmd:register",
           `Started refreshing ${commands.length} application (/) commands.`
         );
         const data: any = await rest.put(Routes.applicationCommands(BOTID), {
@@ -81,7 +83,7 @@ export const register = async () => {
 
         logs(
           "success",
-          "cmd_register",
+          "cmd:register",
           `Successfully reloaded ${data.length} application (/) commands.`
         );
       } catch (error) {
@@ -89,6 +91,6 @@ export const register = async () => {
       }
     })();
   } else {
-    logs("error", "cmd_register", "Missing env config");
+    logs("error", "cmd:register", "Missing env config");
   }
 };
