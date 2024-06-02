@@ -9,6 +9,8 @@ export const commandDraft = async (client: any, interaction: any) => {
     (channel: any) => channel.id === interaction.channelId
   );
 
+  console.log(interaction.guildId);
+
   if (commandName !== "draft") {
     return;
   }
@@ -43,7 +45,7 @@ export const commandDraft = async (client: any, interaction: any) => {
           content: `**Player ${i + 1}** \r\n> ${playerChoice.join(" — ")}`,
         });
       } catch (error: any) {
-        logs("error", "command_draft", error);
+        logs("error", "command:draft:send_message", error, interaction.guildId);
       }
     }
 
@@ -53,7 +55,7 @@ export const commandDraft = async (client: any, interaction: any) => {
         ephemeral: true,
       });
     } catch (error: any) {
-      logs("error", "command_draft", error);
+      logs("error", "command:draft:reply", error, interaction.guildId);
     }
   };
 

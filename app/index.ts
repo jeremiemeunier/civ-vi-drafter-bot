@@ -29,7 +29,7 @@ const client = new Client({
 
 import { logs } from "./functions/logs";
 import { api } from "./functions/api";
-import { register, register_in_guild } from "./functions/register";
+import { register_in_guild } from "./functions/register";
 import { interactionCreateEventInit } from "./events/interactionCreateEvent";
 
 // ##### APP ##### \\
@@ -42,10 +42,8 @@ const status: () => void = async () => {
     client.user.setPresence({
       activities: [
         {
-          name: `Les Drafts les plus qualitative de ta région — Crée des drafts pour ${
-            guildLength > 1
-              ? `${guildLength} serveurs`
-              : `${guildLength} serveur`
+          name: `Les Drafts les plus qualitative de ta région — Making draft on ${
+            guildLength > 1 ? `${guildLength} servers` : `${guildLength} server`
           }`,
           type: ActivityType.Custom,
         },
@@ -56,7 +54,12 @@ const status: () => void = async () => {
 
 const guild_boot = (guild: any) => {
   try {
-    logs("start", "booter:guild_starter", "Start all functions", guild.id);
+    logs(
+      "start",
+      "booter:guild_starter",
+      `Start all functions for ${guild.name}`,
+      guild.id
+    );
     register_in_guild(guild.id);
   } catch (error: any) {
     logs("error", "booter:guild_starter", error, guild.id);
@@ -64,7 +67,7 @@ const guild_boot = (guild: any) => {
 };
 
 export const boot: () => void = async () => {
-  logs("start", "booter", "CIVDraftBot has started successfully");
+  logs("start", "booter", `Drafty has started successfully`);
 
   status();
 
@@ -95,7 +98,7 @@ export const boot: () => void = async () => {
 };
 
 try {
-  client.on("ready", () => {
+  client.once(Events.ClientReady, () => {
     boot();
   });
   client.login(process.env.BOT_TOKEN);
