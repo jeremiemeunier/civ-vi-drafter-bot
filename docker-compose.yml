@@ -3,7 +3,7 @@ version: "3"
 services:
   mongodb:
     image: mongo:latest
-    container_name: mongodb
+    container_name: drafty_mongodb
     restart: always
     volumes:
       - mongo-data:/data/db
@@ -14,7 +14,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: app
+    container_name: drafty_app
     env_file:
       - .env
     environment:

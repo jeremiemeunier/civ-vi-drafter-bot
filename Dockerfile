@@ -11,9 +11,7 @@ FROM node:20-slim
 
 WORKDIR /app
 COPY --from=builder /app/dist /app
-COPY /app/data /app/data
 COPY package*.json ./
-COPY .env ./
 RUN npm i
 
-CMD [ "node", "--env-file=.env", "index.js" ]
+CMD [ "node", "index.js" ]
