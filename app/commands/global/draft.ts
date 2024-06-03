@@ -5,13 +5,17 @@ const commands = {
   options: [
     {
       name: "number_of_players",
-      description: "How much player ?",
+      description: "How much player ? (Between 1 and 12)",
+      min_value: 1,
+      max_value: 12,
       type: 4,
       required: true,
     },
     {
       name: "number_of_choices",
-      description: "How much choices ?",
+      description: "How much choices ? (Between 1 and 6)",
+      min_value: 1,
+      max_value: 6,
       type: 4,
       required: true,
     },
