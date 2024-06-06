@@ -1,15 +1,22 @@
 import { Events, EmbedBuilder, Embed } from "discord.js";
 import { logs } from "../../../functions/logs";
-import { readFileSync } from "node:fs";
+import * as LeadersData from "../../../data/leaders.json";
+
+interface LeaderProps {
+  id: string;
+  shortName: string;
+  longName: string;
+  civilization: string;
+  image: string;
+  dlc: string[];
+}
 
 export const commandDraft = async (client: any, interaction: any) => {
   const { commandName } = interaction;
-  const leaders = JSON.parse(readFileSync("./data/leaders.json").toString());
+  const choosenLeaders: LeaderProps[] = [];
   const interactChannel = client.channels.cache.find(
     (channel: any) => channel.id === interaction.channelId
   );
-
-  console.log(interaction.guildId);
 
   if (commandName !== "draft") {
     return;
@@ -20,7 +27,7 @@ export const commandDraft = async (client: any, interaction: any) => {
   };
 
   const draftLearders = async (sizeOfPlayer: number, sizeOfChoice: number) => {
-    if (leaders.length < sizeOfPlayer * sizeOfChoice) {
+    if (LeadersData.length < sizeOfPlayer * sizeOfChoice) {
       await interaction.reply({
         content: `Il n'y as pas assez de dirigeants disponible pour créer une draft sans doublons. Veuillez réduire le nombre de choix ou de participants.`,
         ephemeral: true,
@@ -32,16 +39,41 @@ export const commandDraft = async (client: any, interaction: any) => {
       let playerChoice = [];
 
       for (let i = 0; i < sizeOfChoice; i++) {
-        const num: number = getRandomNumber(0, Object.keys(leaders).length - 1);
-
-        playerChoice.push(
-          `${leaders[num].shortName} (*${leaders[num].civilization}*)`
+        let num: number = getRandomNumber(
+          0,
+          Object.keys(LeadersData).length - 2
         );
-        leaders.splice(num, 1);
+
+        while (
+          choosenLeaders.find(
+            (leader) => leader.shortName === LeadersData[num].shortName
+          )
+        ) {
+          num = getRandomNumber(0, Object.keys(LeadersData).length - 2);
+          logs(
+            null,
+            "command:draft:generate",
+            num.toString(),
+            interaction.guildId
+          );
+        }
+
+        try {
+          playerChoice.push(
+            `${LeadersData[num].shortName} (*${LeadersData[num].civilization}*)`
+          );
+        } catch (error: any) {
+          logs(
+            "error",
+            "command:draft:build_draft_user",
+            `${error} - ${num}`,
+            interaction.guildId
+          );
+        }
       }
 
       try {
-        await interactChannel.send({
+        interactChannel.send({
           content: `**Player ${i + 1}** \r\n> ${playerChoice.join(" — ")}`,
         });
       } catch (error: any) {
@@ -56,6 +88,7 @@ export const commandDraft = async (client: any, interaction: any) => {
       });
     } catch (error: any) {
       logs("error", "command:draft:reply", error, interaction.guildId);
+      logs("error", "command:draft:reply", interaction, interaction.guildId);
     }
   };
 
