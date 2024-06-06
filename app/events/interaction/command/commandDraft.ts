@@ -41,7 +41,7 @@ export const commandDraft = async (client: any, interaction: any) => {
       for (let i = 0; i < sizeOfChoice; i++) {
         let num: number = getRandomNumber(
           0,
-          Object.keys(LeadersData).length - 1
+          Object.keys(LeadersData).length - 2
         );
 
         while (
@@ -49,7 +49,7 @@ export const commandDraft = async (client: any, interaction: any) => {
             (leader) => leader.shortName === LeadersData[num].shortName
           )
         ) {
-          num = getRandomNumber(0, Object.keys(LeadersData).length - 1);
+          num = getRandomNumber(0, Object.keys(LeadersData).length - 2);
           logs(
             null,
             "command:draft:generate",
@@ -66,14 +66,14 @@ export const commandDraft = async (client: any, interaction: any) => {
           logs(
             "error",
             "command:draft:build_draft_user",
-            error,
+            `${error} - ${num}`,
             interaction.guildId
           );
         }
       }
 
       try {
-        await interactChannel.send({
+        interactChannel.send({
           content: `**Player ${i + 1}** \r\n> ${playerChoice.join(" — ")}`,
         });
       } catch (error: any) {
