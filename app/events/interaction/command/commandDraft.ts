@@ -62,6 +62,7 @@ export const commandDraft = async (client: any, interaction: any) => {
           playerChoice.push(
             `${LeadersData[num].shortName} (*${LeadersData[num].civilization}*)`
           );
+          choosenLeaders.push(LeadersData[num]);
         } catch (error: any) {
           logs(
             "error",
