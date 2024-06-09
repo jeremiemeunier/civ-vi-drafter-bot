@@ -126,8 +126,8 @@ export const clean_in_guild = async (guild: string) => {
           `Successfully removed ${data.length} application (/) commands.`,
           guild
         );
-      } catch (error) {
-        console.error(error);
+      } catch (error: any) {
+        logs("error", "cmd:remover", error, guild);
       }
     })();
   }
@@ -154,8 +154,8 @@ export const clean = async () => {
           "cmd:remover",
           `Successfully removed ${data.length} application (/) commands.`
         );
-      } catch (error) {
-        console.error(error);
+      } catch (error: any) {
+        logs("error", "cmd:remover", error);
       }
     })();
   }
