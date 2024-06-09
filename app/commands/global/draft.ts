@@ -19,6 +19,12 @@ const commands = {
       type: 4,
       required: true,
     },
+    {
+      name: "rendering_images",
+      description: "Render image of leaders ?",
+      type: 5,
+      required: false,
+    },
   ],
 };
 
