@@ -1,6 +1,7 @@
-import { Events, EmbedBuilder, Embed } from "discord.js";
-import { logs } from "../../../functions/logs";
+import logs from "../../../functions/logs";
 import * as LeadersData from "../../../data/leaders.json";
+import Canvas from "@napi-rs/canvas";
+import { AttachmentBuilder } from "discord.js";
 
 interface LeaderProps {
   id: string;
@@ -35,6 +36,7 @@ export const commandDraft = async (client: any, interaction: any) => {
       return;
     }
 
+    // building draft
     for (let i = 0; i < sizeOfPlayer; i++) {
       let playerChoice = [];
 
@@ -44,6 +46,7 @@ export const commandDraft = async (client: any, interaction: any) => {
           Object.keys(LeadersData).length - 2
         );
 
+        // if leader already take in draft we get an another random number
         while (
           choosenLeaders.find(
             (leader) => leader.shortName === LeadersData[num].shortName
@@ -74,8 +77,17 @@ export const commandDraft = async (client: any, interaction: any) => {
       }
 
       try {
+        // player draft is ready now build image
+        // build canvas
+        const canvas = Canvas.createCanvas(700, 250);
+        const context = canvas.getContext("2d");
+        const attachment = new AttachmentBuilder(await canvas.encode("png"), {
+          name: "profile-image.png",
+        });
+
         interactChannel.send({
           content: `**Player ${i + 1}** \r\n> ${playerChoice.join(" — ")}`,
+          files: [attachment],
         });
       } catch (error: any) {
         logs("error", "command:draft:send_message", error, interaction.guildId);

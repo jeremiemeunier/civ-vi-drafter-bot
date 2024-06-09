@@ -1,7 +1,7 @@
 import express, { json } from "express";
 import cors from "cors";
 import axios from "axios";
-import { logs } from "./logs";
+import logs from "./logs";
 
 const app = express();
 
