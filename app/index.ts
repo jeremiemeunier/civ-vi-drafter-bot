@@ -2,8 +2,14 @@ import { connect } from "mongoose";
 
 // ##### BDD ##### \\
 
-const MONGO_URL = process.env.MONGODB_URL;
-MONGO_URL && connect(MONGO_URL);
+const { MONGODB_URL } = process.env;
+if (MONGODB_URL) {
+  try {
+    connect(MONGODB_URL);
+  } catch (error: any) {
+    logs("error", "database:connect", error);
+  }
+}
 
 // ##### BOT SETUP ##### \\
 
