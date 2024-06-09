@@ -2,8 +2,14 @@ import { connect } from "mongoose";
 
 // ##### BDD ##### \\
 
-const MONGO_URL = process.env.MONGODB_URL;
-MONGO_URL && connect(MONGO_URL);
+const { MONGODB_URL } = process.env;
+if (MONGODB_URL) {
+  try {
+    connect(MONGODB_URL);
+  } catch (error: any) {
+    logs("error", "database:connect", error);
+  }
+}
 
 // ##### BOT SETUP ##### \\
 
@@ -27,9 +33,9 @@ const client = new Client({
 
 // ##### IMPORT ##### \\
 
-import { logs } from "./functions/logs";
+import logs from "./functions/logs";
 import { api } from "./functions/api";
-import { register_in_guild } from "./functions/register";
+import { clean, clean_in_guild, register_in_guild } from "./functions/register";
 import { interactionCreateEventInit } from "./events/interactionCreateEvent";
 
 // ##### APP ##### \\
@@ -60,6 +66,7 @@ const guild_boot = (guild: any) => {
       `Start all functions for ${guild.name}`,
       guild.id
     );
+    clean_in_guild(guild.id);
     register_in_guild(guild.id);
   } catch (error: any) {
     logs("error", "booter:guild_starter", error, guild.id);
@@ -74,6 +81,7 @@ export const boot: () => void = async () => {
   try {
     // API
     api();
+    clean();
 
     try {
       const allGuilds = client.guilds.cache;

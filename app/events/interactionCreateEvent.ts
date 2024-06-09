@@ -1,5 +1,5 @@
 import { Events } from "discord.js";
-import { logs } from "../functions/logs";
+import logs from "../functions/logs";
 import { commandDraft } from "./interaction/command/commandDraft";
 
 export const interactionCreateEventInit = (client: any) => {

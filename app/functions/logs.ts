@@ -1,56 +1,22 @@
-const tag = `draftbot`;
+const tag = `staty`;
 
-const composeTime: () => string = () => {
+export const composeTime: () => string = () => {
   const now = new Date();
 
-  const day =
-    now.getDate().toString().length < 2 ? `0${now.getDate()}` : now.getDate();
-  const month =
-    now.getMonth().toString().length < 2
-      ? `0${now.getMonth() + 1}`
-      : now.getMonth() + 1;
+  const day = now.getDate().toString().padStart(2, "0");
+  const month = (now.getMonth() + 1).toString().padStart(2, "0");
   const year = now.getFullYear();
 
-  const hours =
-    now.getHours().toString().length < 2
-      ? `0${now.getHours()}`
-      : now.getHours();
-  const minutes =
-    now.getMinutes().toString().length < 2
-      ? `0${now.getMinutes()}`
-      : now.getMinutes();
-  const seconds =
-    now.getSeconds().toString().length < 2
-      ? `0${now.getSeconds()}`
-      : now.getSeconds();
-  const miliseconds = () => {
-    if (now.getMilliseconds().toString().length === 2) {
-      return `0${now.getMilliseconds()}`;
-    } else if (now.getMilliseconds().toString().length === 1) {
-      return `00${now.getMilliseconds()}`;
-    }
+  const hours = now.getHours().toString().padStart(2, "0");
+  const minutes = now.getMinutes().toString().padStart(2, "0");
+  const seconds = now.getSeconds().toString().padStart(2, "0");
+  const miliseconds = now.getMilliseconds().toString().padStart(3, "0");
 
-    return now.getMilliseconds();
-  };
-
-  return `[${day}/${month}/${year} ${hours}:${minutes}:${seconds}.${miliseconds()}]`;
+  return `[${day}/${month}/${year} ${hours}:${minutes}:${seconds}.${miliseconds}]`;
 };
 
 const composeService: (data: string) => string = (data: string) => {
-  if (data) {
-    const size = data.length;
-    const max = 32;
-
-    if (size < max) {
-      for (let i = 0; i < max - size; i++) {
-        data = `${data}_`;
-      }
-      return data;
-    }
-    return data;
-  }
-
-  return data;
+  return data.padEnd(32, "_");
 };
 
 const composeState: (
@@ -70,7 +36,7 @@ const composeState: (
   }
 };
 
-export const logs: (
+const logs: (
   state: "error" | "success" | "warning" | "start" | null,
   service: string,
   content: string,
@@ -95,3 +61,5 @@ export const logs: (
     );
   }
 };
+
+export default logs;

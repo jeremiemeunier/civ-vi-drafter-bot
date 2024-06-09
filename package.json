@@ -4,9 +4,9 @@
   "description": "A bot who send love all days of your life",
   "main": "app/index.ts",
   "scripts": {
-    "prod": "babel-node --env-file=.env index.js",
-    "build": "npx tsc",
-    "dev": "npx tsc && npx nodemon --exec babel-node --env-file=.env ./dist/index.js"
+    "build": "npx tsc && npm run copy",
+    "dev": "npm run build && node --env-file=.env ./dist/index.js",
+    "copy": "cpx \"app/public/img/*\" dist/public/img"
   },
   "repository": {
     "type": "git",
@@ -21,13 +21,15 @@
   "dependencies": {
     "@babel/preset-typescript": "^7.24.6",
     "@discordjs/rest": "^2.3.0",
+    "@napi-rs/canvas": "^0.1.52",
     "axios": "^1.7.2",
     "cors": "^2.8.5",
     "discord.js": "^14.15.2",
     "express": "^4.19.2",
     "express-rate-limit": "^7.2.0",
     "lodash": "^4.17.21",
-    "mongoose": "^8.4.0"
+    "mongoose": "^8.4.0",
+    "uid2": "^1.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.6",
@@ -39,6 +41,8 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/node": "^20.12.13",
+    "@types/uid2": "^0.0.2",
+    "cpx": "^1.5.0",
     "typescript": "^5.4.5"
   }
 }
