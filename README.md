@@ -12,9 +12,8 @@ You can simply add bot without deployment with [this link](https://discord.com/o
 
 * Ban specific leaders
 * Restrict DLC leaders to certain players
-* Change the names of players
 * Options to allow duplicate civilizations and leaders
-* Build and send image with name and picture of leaders
+* ~Build and send image with name and picture of leaders~
 
 ## Deployment
 
@@ -23,3 +22,7 @@ The following assumes you have Git and Docker installed.
 ```bash
 docker compose up -d --build
 ```
+
+## Usage
+
+Just send a `/draft` in you discord channel and follow required fields. Now you can pass a third params to render images of all leaders drafted.
