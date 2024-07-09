@@ -1,7 +1,7 @@
 const commands = {
   name: "draft",
   description: "Launch draft sequence",
-  default_member_permissions: 0,
+  default_member_permissions: 2147483648,
   options: [
     {
       name: "number_of_players",
