@@ -13,9 +13,9 @@ const commands = {
     },
     {
       name: "number_of_choices",
-      description: "How much choices ? (Between 1 and 6)",
+      description: "How much choices ? (Between 1 and 8)",
       min_value: 1,
-      max_value: 6,
+      max_value: 8,
       type: 4,
       required: true,
     },
